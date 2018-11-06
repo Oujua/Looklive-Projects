@@ -1,7 +1,7 @@
 import random
 import os
 clear = lambda: os.system('cls')
-Word_List = list(range(1,126))
+Word_List = list(range(1,2997))
 inFile = open('Hangman_Answers.txt', 'r')
 counter = 0
 times_played = 0
@@ -14,7 +14,7 @@ for line in inFile:
 User_Name = input("Hello user! Please enter your name so I can refer to you properly. :]\n") #Gets the user name to refer to later
 print(f"\n\nThank you {User_Name}, and without further ado...\n\n")
 print("Welcome to..........")
-Start_String = """
+print("""
  ▄         ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄       ▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄  ▄
 ▐░▌       ▐░▌▐░░░░░░░░░░░▌▐░░▌      ▐░▌▐░░░░░░░░░░░▌▐░░▌     ▐░░▌▐░░░░░░░░░░░▌▐░░▌      ▐░▌▐░▌
 ▐░▌       ▐░▌▐░█▀▀▀▀▀▀▀█░▌▐░▌░▌     ▐░▌▐░█▀▀▀▀▀▀▀▀▀ ▐░▌░▌   ▐░▐░▌▐░█▀▀▀▀▀▀▀█░▌▐░▌░▌     ▐░▌▐░▌
@@ -26,25 +26,24 @@ Start_String = """
 ▐░▌       ▐░▌▐░▌       ▐░▌▐░▌     ▐░▐░▌▐░█▄▄▄▄▄▄▄█░▌▐░▌       ▐░▌▐░▌       ▐░▌▐░▌     ▐░▐░▌ ▄
 ▐░▌       ▐░▌▐░▌       ▐░▌▐░▌      ▐░░▌▐░░░░░░░░░░░▌▐░▌       ▐░▌▐░▌       ▐░▌▐░▌      ▐░░▌▐░▌
  ▀         ▀  ▀         ▀  ▀        ▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀         ▀  ▀         ▀  ▀        ▀▀  ▀
-"""
-print(Start_String)
+""")
 repeat = input("Would you like to play? y/n\n") #Origin to loop
 while repeat != "n":
     Wrong_Guess = 0
     Guess_List = []
     Guess_List.append("Letters used:") #Creates guess list
-    Hint_Enable = input("Would you like to play with hints? y/n\n")
-    Clear_Enable = input("Would you like to clear the screen after each turn? y/n\n")
+    Hint_Enable = input("Would you like to play with hints? y/n\n") # asks about hints
+    Clear_Enable = input("Would you like to clear the screen after each turn? y/n\n") #asks about clearing screen
     if times_played > 0 and Clear_Enable == 1:
         clear()
-    print("\nWelcome to Hangman! type quit at any time to exit the game, or, enter a lowercase letter to guess.\n")
+    print("\nWelcome to Hangman! type quit at any time to exit the game, enter a lowercase letter to guess, or guess the word.\n")
     Man = """|_________|
 |
 |
 |
 |
 |"""
-    Original_Word = Word_List[random.randint(1,126)] #Selects a random word
+    Original_Word = Word_List[random.randint(1,2997)] #Selects a random word
     Original_Word = Original_Word.replace("\n","")
     Current_Guess = "-" * len(Original_Word)
     while Original_Word != Current_Guess and User_Input != "quit":   # if still not complete, or user does not choose to quit
@@ -53,7 +52,8 @@ while repeat != "n":
         User_Input = input("\nEnter a character, or guess the word: ")
         if User_Input in Original_Word and User_Input not in Guess_List: #Checks to make sure the character isn't used before
             if User_Input != Original_Word:
-                print(f"\nYes! {User_Input}, is in the word!")
+                clear()
+                print(f"\nYes! {User_Input}, is in the word!") #positive response
                 new = ""
                 for i in range(len(Original_Word)):
                     if User_Input == Original_Word[i]:
@@ -66,7 +66,21 @@ while repeat != "n":
                     clear()
                 print(f"\nYes! {User_Input}, is the word!")
             if Original_Word == Current_Guess or User_Input == Original_Word:
-                print(f"\nThe word was: {Original_Word}. You win! Congrats, {User_Name}!\n")
+                print("""
+ ▄         ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄         ▄       ▄         ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄  ▄
+▐░▌       ▐░▌▐░░░░░░░░░░░▌▐░▌       ▐░▌     ▐░▌       ▐░▌▐░░░░░░░░░░░▌▐░░▌      ▐░▌▐░▌
+▐░▌       ▐░▌▐░█▀▀▀▀▀▀▀█░▌▐░▌       ▐░▌     ▐░▌       ▐░▌ ▀▀▀▀█░█▀▀▀▀ ▐░▌░▌     ▐░▌▐░▌
+▐░▌       ▐░▌▐░▌       ▐░▌▐░▌       ▐░▌     ▐░▌       ▐░▌     ▐░▌     ▐░▌▐░▌    ▐░▌▐░▌
+▐░█▄▄▄▄▄▄▄█░▌▐░▌       ▐░▌▐░▌       ▐░▌     ▐░▌   ▄   ▐░▌     ▐░▌     ▐░▌ ▐░▌   ▐░▌▐░▌
+▐░░░░░░░░░░░▌▐░▌       ▐░▌▐░▌       ▐░▌     ▐░▌  ▐░▌  ▐░▌     ▐░▌     ▐░▌  ▐░▌  ▐░▌▐░▌
+ ▀▀▀▀█░█▀▀▀▀ ▐░▌       ▐░▌▐░▌       ▐░▌     ▐░▌ ▐░▌░▌ ▐░▌     ▐░▌     ▐░▌   ▐░▌ ▐░▌▐░▌
+     ▐░▌     ▐░▌       ▐░▌▐░▌       ▐░▌     ▐░▌▐░▌ ▐░▌▐░▌     ▐░▌     ▐░▌    ▐░▌▐░▌ ▀
+     ▐░▌     ▐░█▄▄▄▄▄▄▄█░▌▐░█▄▄▄▄▄▄▄█░▌     ▐░▌░▌   ▐░▐░▌ ▄▄▄▄█░█▄▄▄▄ ▐░▌     ▐░▐░▌ ▄
+     ▐░▌     ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌     ▐░░▌     ▐░░▌▐░░░░░░░░░░░▌▐░▌      ▐░░▌▐░▌
+      ▀       ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀       ▀▀       ▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀        ▀▀  ▀
+
+""")
+                print(f"\nThe word was: {Original_Word}. Congrats, {User_Name}!\n")
                 break
             Guess_List.append(User_Input)
             print("\n\n")
